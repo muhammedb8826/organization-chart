@@ -1,0 +1,131 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.org-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.level-1, .level-2, .level-3 {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.level-2, .level-3 {
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.left-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.box {
+  border: 2px solid #8AC43F;
+  padding: 20px;
+  text-align: center;
+  width: 200px;
+  background-color: white;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+/* Sublist styling for Level 3 children */
+.sub-list {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sub-list .box {
+  width: 150px;
+  border-color: #3FA8C4; /* Different color for sub-lists */
+}
+
+
+.box:hover {
+  background-color: #f0f0f0;
+}
+
+/* Center content */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Connecting lines */
+
+.level-1::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 213px;
+  border-left: 2px solid #8AC43F;
+}
+
+
+.level-3::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 80%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  border-left: 2px solid #8AC43F;
+  rotate: 90deg;
+  transform: translate(-50%, 50%);
+}
+
+.level-2 .left-box .box:first-child::after, .level-2 .left-box .box:nth-child(2)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 60%;
+  border-top: 2px solid #8AC43F;
+}
+
+.level-2 .box:last-child::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -60%;
+  width: 60%;
+  border-top: 2px solid #8AC43F;
+}
+
+
+
+@media (max-width: 768px) {
+
+}
