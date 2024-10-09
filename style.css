@@ -1,9 +1,21 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding: 20px;
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0 auto;
+  padding:20px 0;
+  border: #333 solid 1px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .org-chart {
@@ -11,18 +23,21 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  overflow: hidden;
-  overflow-x: auto;
+  max-width: 1200px;
+  height: 100%;
 }
 
-.level-1, .level-2, .level-3 {
+.level-1,
+.level-2,
+.level-3 {
   display: flex;
   justify-content: center;
   margin: 20px 0;
   position: relative;
 }
 
-.level-2, .level-3 {
+.level-2,
+.level-3 {
   width: 100%;
   justify-content: space-between;
   gap: 20px;
@@ -44,14 +59,25 @@
 }
 
 .box {
-  border: 2px solid #8AC43F;
+  border: 2px solid #8ac43f;
   padding: 20px;
   text-align: center;
-  width: 200px;
+  width: 300px;
   background-color: white;
   transition: background-color 0.3s ease;
   position: relative;
 }
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+ol {
+  text-align: left;
+}
+
 
 /* Sublist styling for Level 3 children */
 .sub-list {
@@ -60,13 +86,22 @@
   flex-direction: column;
   gap: 10px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .sub-list .box {
-  width: 150px;
-  border-color: #3FA8C4; /* Different color for sub-lists */
+  width: 250px;
+  border-color: #3fa8c4; /* Different color for sub-lists */
 }
 
+.sub-list .box::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  width: 20px;
+  border-top: 2px solid #3fa8c4;
+}
 
 .box:hover {
   background-color: #f0f0f0;
@@ -83,49 +118,115 @@
 /* Connecting lines */
 
 .level-1::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 50%;
   width: 0;
-  height: 213px;
-  border-left: 2px solid #8AC43F;
+  height: 320px;
+  border-left: 2px solid #8ac43f;
 }
 
+.level-3 .group .middle::after {
+  content: "";
+  position: absolute;
+  top: -337px;
+  left: 52%;
+  width: 2px;
+  height: 642px;
+  rotate: 90deg;
+  background-color: #8ac43f;
+}
 
-.level-3::before {
-  content: '';
+.level-3 .group .left::after {
+  content: "";
+  position: absolute;
+  top: 86px;
+  left: 5px;
+  width: 2px;
+  height: 312px;
+  background-color: #8ac43f;
+}
+
+.level-3 .group .right::after {
+  content: "";
+  position: absolute;
+  top: 64px;
+  left: 5px;
+  width: 2px;
+  height: 240px;
+  background-color: #8ac43f;
+}
+
+.level-3 .group::before {
+  content: "";
   position: absolute;
   display: block;
-  top: 80%;
+  top: 0;
   left: 50%;
-  width: 500px;
-  height: 500px;
-  border-left: 2px solid #8AC43F;
+  width: 15px;
   rotate: 90deg;
+  border-top: 2px solid #8ac43f;
   transform: translate(-50%, 50%);
 }
 
-.level-2 .left-box .box:first-child::after, .level-2 .left-box .box:nth-child(2)::after {
-  content: '';
+/* group middle connector line */
+
+.level-3 .group:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  top: 88px;
+  left: 5px;
+  width: 2px;
+  height: 222px;
+  background-color: #8ac43f;
+}
+
+.level-2 .left-box .box:first-child::after,
+.level-2 .left-box .box:nth-child(2)::after {
+  content: "";
   position: absolute;
   top: 50%;
   left: 100%;
-  width: 60%;
-  border-top: 2px solid #8AC43F;
+  width: 58%;
+  border-top: 2px solid #8ac43f;
 }
 
 .level-2 .box:last-child::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
-  left: -60%;
-  width: 60%;
-  border-top: 2px solid #8AC43F;
+  left: -58%;
+  width: 58%;
+  border-top: 2px solid #8ac43f;
 }
-
-
 
 @media (max-width: 768px) {
 
+  .org-chart {
+    padding: 10px;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .level-1::after {
+    height: 570px;
+  }
+
+  .level-2 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .level-2 .left-box .box:first-child::after,
+  .level-2 .left-box .box:nth-child(2)::after {
+    width: 0;
+    left: 0;
+  }
+
+  .level-2 .box:last-child::after {
+    width: 0;
+    left: 0;
+  }
 }
